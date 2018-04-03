@@ -32,5 +32,3 @@ RUN apk del --purge build-dependencies
 
 RUN rm -rf /tmp
 RUN rm -rf /var/cache/apk/*
-
-ENTRYPOINT ["rtl_433"]
