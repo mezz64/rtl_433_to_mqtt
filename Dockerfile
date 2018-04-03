@@ -12,8 +12,7 @@ RUN apk add --no-cache \
 
 WORKDIR /tmp
 
-RUN echo 'blacklist dvb_usb_rtl28xxu' > /etc/modprobe.d/raspi-blacklist.conf && \
-    git clone git://git.osmocom.org/rtl-sdr.git && \
+RUN git clone git://git.osmocom.org/rtl-sdr.git && \
     mkdir rtl-sdr/build && \
     cd rtl-sdr/build && \
     cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON && \
@@ -27,11 +26,11 @@ RUN git clone https://github.com/merbanan/rtl_433.git && \
     cd build && \
     cmake ../ && \
     make && \
-    make install && \
-    cd / && \
-    rm -rf /tmp/rtl_433
+    make install
 
 RUN apk del --purge build-dependencies
 
 RUN rm -rf /tmp
 RUN rm -rf /var/cache/apk/*
+
+ENTRYPOINT ["rtl_433"]
