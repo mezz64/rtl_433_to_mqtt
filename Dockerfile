@@ -1,5 +1,12 @@
 FROM alpine:3.3
 
+
+# Define an environment variable
+
+ENV MQTT_HOST=""
+ENV MQTT_USER=""
+ENV MQTT_PASS=""
+
 RUN apk add --no-cache --virtual=build-dependencies \
   git\
   cmake\
@@ -8,7 +15,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
 RUN apk add --no-cache \
   libusb-dev\
   bash\
-  python3
+  python3\
+  mosquitto-clients
 
 WORKDIR /tmp
 
@@ -32,3 +40,15 @@ RUN apk del --purge build-dependencies
 
 RUN rm -rf /tmp
 RUN rm -rf /var/cache/apk/*
+
+
+# Copy my script and make it executable
+
+COPY rtl2mqtt.sh /scripts/rtl2mqtt.sh
+RUN chmod +x /scripts/rtl2mqtt.sh
+
+VOLUME ["/scripts"]
+
+# When running a container this script will be executed
+
+ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
