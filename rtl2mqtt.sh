@@ -24,4 +24,4 @@ PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 #   echo $line  | /usr/bin/mosquitto_pub -h $MQTT_HOST -u $MQTT_USER -P $MQTT_PASS -i RTL_433 -l -t "house/rtl433/raw"
 # done
 
-/usr/local/bin/rtl_433 -F json -U | /usr/bin/mosquitto_pub -h $MQTT_HOST -u $MQTT_USER -P $MQTT_PASS -i RTL_433 -l -t "house/rtl433/raw"
+/usr/local/bin/rtl_433 -F json -M utc | /usr/bin/mosquitto_pub -h $MQTT_HOST -u $MQTT_USER -P $MQTT_PASS -i RTL_433 -l -t "house/rtl433/raw"
