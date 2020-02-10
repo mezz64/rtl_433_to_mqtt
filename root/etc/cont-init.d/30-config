@@ -8,12 +8,11 @@
 [ ! -f /config/rtl_settings.json ] && \
     cp /defaults/rtl_settings.json /config
 
-mkdir /app
 cp /defaults/rtl2mqtt.sh /app/rtl2mqtt.sh
 chmod +x /app/rtl2mqtt.sh
 
 # install rtl-sdr
-[[ ! -d "/app/rtl-sdr/.git" ]] && \
+[[ ! -d "/app/rtl-sdr/build" ]] && \
     echo "Installing RTL-SDR..."
     git clone git://git.osmocom.org/rtl-sdr.git /app/rtl-sdr
     mkdir /app/rtl-sdr/build
@@ -23,7 +22,7 @@ chmod +x /app/rtl2mqtt.sh
     make install
 
 # install rtl_433
-[[ ! -d "/app/rtl_433/.git" ]] && \
+[[ ! -d "/app/rtl_433/build" ]] && \
     echo "Installing RTL_433..."
     git clone https://github.com/merbanan/rtl_433.git /app/rtl_433
     cd /app/rtl_433

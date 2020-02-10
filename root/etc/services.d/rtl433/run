@@ -5,4 +5,7 @@ umask 022
 exec \
     # s6-setuidgid abc /usr/bin/python3 /app/sstvproxy/sstvProxy.py
     # s6-setuidgid abc /usr/local/bin/rtl_433 -F json -U | /usr/bin/mosquitto_pub -h $MQTT_HOST -u $MQTT_USER -P $MQTT_PASS -i RTL_433 -l -t "house/rtl433/raw"
-    s6-setuidgid abc /app/rtl2mqtt.sh
+    # s6-setuidgid abc /app/rtl2mqtt.sh
+    # s6-setuidgid abc /usr/local/bin/rtl_433 -F "mqtt://$MQTT_HOST:1883,user=$MQTT_USER,pass=$MQTT_PASS,retain=0,devices=rtl_433[/id]" -M utc
+    s6-setuidgid abc /usr/local/bin/rtl_433 -F "mqtt://$MQTT_HOST:1883,user=$MQTT_USER,pass=$MQTT_PASS,retain=0" -M utc -M newmodel
+    
