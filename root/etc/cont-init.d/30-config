@@ -8,6 +8,9 @@
 [ ! -f /config/rtl_settings.json ] && \
     cp /defaults/rtl_settings.json /config
 
+mkdir /app
+cp /defaults/rtl2mqtt.sh /app/rtl2mqtt.sh
+chmod +x /app/rtl2mqtt.sh
 
 # install rtl-sdr
 [[ ! -d "/app/rtl-sdr/.git" ]] && \
