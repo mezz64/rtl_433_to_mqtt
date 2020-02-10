@@ -1,0 +1,44 @@
+#!/usr/bin/with-contenv bash
+
+# Ensure we have a /config folder
+[ ! -d /config/temp ] && \
+    mkdir /config/temp
+
+# Check for presence of settings files, copy defaults if necessary
+[ ! -f /config/rtl_settings.json ] && \
+    cp /defaults/rtl_settings.json /config
+
+
+# install rtl-sdr
+[[ ! -d "/app/rtl-sdr/.git" ]] && \
+    echo "Installing RTL-SDR..."
+    git clone git://git.osmocom.org/rtl-sdr.git /app/rtl-sdr
+    mkdir /app/rtl-sdr/build
+    cd /app/rtl-sdr/build
+    cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+    make
+    make install
+
+# install rtl_433
+[[ ! -d "/app/rtl_433/.git" ]] && \
+    echo "Installing RTL_433..."
+    git clone https://github.com/merbanan/rtl_433.git /app/rtl_433
+    cd /app/rtl_433
+    git reset --hard $commit_id
+    mkdir build
+    cd build
+    cmake ../
+    make
+    make install
+
+# apk del --purge build-dependencies
+# RUN rm -rf /tmp
+# RUN rm -rf /var/cache/apk/*
+
+
+# Create symlinks to settings files
+ln -sf /config/rtl_settings.json /app/rtl_433/rtl_settings.json
+
+# permissions
+chown abc:abc -R \
+    /config
