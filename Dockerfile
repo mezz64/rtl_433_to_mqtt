@@ -11,18 +11,21 @@ ENV DEV_ID=""
 RUN apk add --no-cache --virtual=build-dependencies \
   git\
   cmake\
-  build-base
+  build-essential\
+  autoconf\
+  pkg-config
 
 RUN apk add --no-cache \
-  libusb-dev\
+  libtool\
+  libusb-1.0-0-dev\
+#  libusb-dev\
+  librtlsdr-dev\
   bash\
   python3\
   mosquitto-clients
 
 # Copy Local Files
 COPY root/ /
-
-
 
 WORKDIR /tmp
 
