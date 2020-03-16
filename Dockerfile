@@ -6,6 +6,7 @@ FROM lsiobase/alpine:3.11
 ENV MQTT_HOST=""
 ENV MQTT_USER=""
 ENV MQTT_PASS=""
+ENV DEV_ID=""
 
 RUN apk add --no-cache --virtual=build-dependencies \
   git\
