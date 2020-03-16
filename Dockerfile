@@ -1,6 +1,4 @@
-# FROM alpine:3.3
 FROM lsiobase/alpine:3.11
-
 
 # Define an environment variable
 ENV MQTT_HOST=""
@@ -14,13 +12,12 @@ RUN apk add --no-cache --virtual=build-dependencies \
   build-base
 
 RUN apk add --no-cache \
-  libtool\
-  libusb-1.0-0-dev\
-#  libusb-dev\
-  librtlsdr-dev\
+  libusb-dev\
   bash\
   python3\
   mosquitto-clients
+
+RUN apk add librtlsdr-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
 
 # Copy Local Files
 COPY root/ /
@@ -46,13 +43,6 @@ RUN git clone https://github.com/merbanan/rtl_433.git && \
 RUN apk del --purge build-dependencies
 
 RUN rm -rf /tmp
-# RUN rm -rf /var/cache/apk/*
-
-# Copy my script and make it executable
-# COPY rtl2mqtt.sh /scripts/rtl2mqtt.sh
-# RUN chmod +x /scripts/rtl2mqtt.sh
+RUN rm -rf /var/cache/apk/*
 
 VOLUME ["/config"]
-
-# When running a container this script will be executed
-# ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
