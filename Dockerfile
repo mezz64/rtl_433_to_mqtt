@@ -11,9 +11,7 @@ ENV DEV_ID=""
 RUN apk add --no-cache --virtual=build-dependencies \
   git\
   cmake\
-  build-essential\
-  autoconf\
-  pkg-config
+  build-base
 
 RUN apk add --no-cache \
   libtool\
