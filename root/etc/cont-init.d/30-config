@@ -38,8 +38,12 @@ chmod +x /app/rtl2mqtt.sh
 # RUN rm -rf /var/cache/apk/*
 
 
-# Create symlinks to settings files
-ln -sf /config/rtl_settings.json /app/rtl_433/rtl_settings.json
+# Create symlinks to settings files if they exist
+[ -f /config/rtl_settings.json ] && \
+    ln -sf /config/rtl_settings.json /app/rtl_433/rtl_settings.json
+
+[ -f /config/rtl_433.conf ] && \
+    ln -sf /config/rtl_433.conf /usr/local/etc/rtl_433/rtl_433.conf
 
 # permissions
 chown abc:abc -R \
