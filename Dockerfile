@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.11
+FROM lsiobase/alpine:3.13
 
 # Define an environment variable
 ENV MQTT_HOST=""
@@ -15,9 +15,10 @@ RUN apk add --no-cache \
   libusb-dev\
   bash\
   python3\
-  mosquitto-clients
+  mosquitto-clients\
+  librtlsdr-dev
 
-RUN apk add librtlsdr-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
+#RUN apk add librtlsdr-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
 
 # Copy Local Files
 COPY root/ /
