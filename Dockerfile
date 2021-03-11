@@ -18,8 +18,6 @@ RUN apk add --no-cache \
   mosquitto-clients\
   librtlsdr-dev
 
-#RUN apk add librtlsdr-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
-
 # Copy Local Files
 COPY root/ /
 
@@ -34,7 +32,6 @@ RUN git clone git://git.osmocom.org/rtl-sdr.git && \
 
 RUN git clone https://github.com/merbanan/rtl_433.git && \
     cd rtl_433 && \
-    git reset --hard $commit_id && \
     mkdir build && \
     cd build && \
     cmake ../ && \
